@@ -58,7 +58,19 @@ public class ImmutableLinkedList implements ImmutableList {
     return n.getValue();
   }
 
+  /**
+   * Get enumerator
+   * @return instance of Enumerator
+   */
   public Enumerator getEnumerator() {
-    throw new UnsupportedOperationException("not yet implemented!");
+    return new ImmutableLinkedListEnumerator(this);
+  }
+
+  /**
+   * get head of ImmutableLinkedList
+   * @return Node instance
+   */
+  public Node getHead() {
+    return head;
   }
 }

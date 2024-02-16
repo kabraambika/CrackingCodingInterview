@@ -39,6 +39,6 @@ public class ImmutableArrayList implements ImmutableList {
   }
 
   public Enumerator getEnumerator() {
-    throw new UnsupportedOperationException("not yet implemented!");
+    return new ImmutableArrayListEnumerator(this);
   }
 }
