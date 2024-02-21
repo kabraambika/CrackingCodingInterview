@@ -30,4 +30,12 @@ public class ImmutableArrayListEnumerator implements Enumerator {
     currentPosition++;
     return nextElement;
   }
+
+  @Override
+  public String toString() {
+    return "ImmutableArrayListEnumerator{" +
+        "list=" + list +
+        ", currentPosition=" + currentPosition +
+        '}';
+  }
 }

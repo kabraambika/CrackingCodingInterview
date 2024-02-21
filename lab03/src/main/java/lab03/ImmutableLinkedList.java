@@ -73,4 +73,11 @@ public class ImmutableLinkedList implements ImmutableList {
   public Node getHead() {
     return head;
   }
+
+  @Override
+  public String toString() {
+    return "ImmutableLinkedList{" +
+        "head=" + head +
+        '}';
+  }
 }

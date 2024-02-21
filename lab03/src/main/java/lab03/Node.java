@@ -37,4 +37,12 @@ public class Node {
    * @return node's successor
    */
   public Node getNext() { return this.next; }
+
+  @Override
+  public String toString() {
+    return "Node{" +
+        "value='" + value + '\'' +
+        ", next=" + next +
+        '}';
+  }
 }

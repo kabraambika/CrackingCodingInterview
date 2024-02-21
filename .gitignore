@@ -1,51 +1,8 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-.idea/*
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
-
 # Created by https://www.toptal.com/developers/gitignore/api/gradle
 # Edit at https://www.toptal.com/developers/gitignore?templates=gradle
 
 ### Gradle ###
+.gradle
 **/build/
 !src/**/build/
 
@@ -61,8 +18,18 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+
+.DS_Store
+
+*.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle

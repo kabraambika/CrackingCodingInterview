@@ -30,4 +30,12 @@ public class ImmutableLinkedListEnumerator implements Enumerator {
     currentNode = currentNode.getNext();
     return nextElement;
   }
+git
+  @Override
+  public String toString() {
+    return "ImmutableLinkedListEnumerator{" +
+        "list=" + list +
+        ", currentNode=" + currentNode +
+        '}';
+  }
 }
