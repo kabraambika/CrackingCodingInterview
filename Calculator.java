@@ -2,13 +2,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * The Calculator class is defined to encapsulate the calculator functionality.
  */
 public class Calculator {
   private Stack<Double> stack;
-  private Map<String, BiFunction<Double, Double, Double>> operators;
+  private Map<String, BiFunction<Double, Double, Double>> binaryOperators;
+  private Map<String, Function<Double, Double>> unaryOperators;
 
   /**
    * The constructor initializes an empty stack (stack) to store the operands and a HashMap (operators)
@@ -16,11 +18,15 @@ public class Calculator {
    */
   public Calculator() {
     stack = new Stack<>();
-    operators = new HashMap<>();
-    operators.put("+", (a,b) -> a + b);
-    operators.put("-", (a,b) -> a - b);
-    operators.put("*", (a,b) -> a * b);
-    operators.put("/", (a,b) -> a / b);
+    binaryOperators = new HashMap<>();
+    binaryOperators.put("+", (a, b) -> a + b);
+    binaryOperators.put("-", (a, b) -> a - b);
+    binaryOperators.put("*", (a, b) -> a * b);
+    binaryOperators.put("/", (a, b) -> a / b);
+    binaryOperators.put("avg", (a, b) -> (a + b) / 2);
+
+    unaryOperators = new HashMap<>();
+    unaryOperators.put("neg", a -> -a);
 
   }
 
@@ -35,8 +41,10 @@ public class Calculator {
    */
   public double evaluate(String[] expression) {
     for (String token : expression) {
-      if (operators.containsKey(token)) {
-        performOperation(token);
+      if (binaryOperators.containsKey(token)) {
+        performBinaryOperation(token);
+      } else if (unaryOperators.containsKey(token)) {
+        performUnaryOperation(token);
       } else {
         stack.push(Double.parseDouble(token));
       }
@@ -58,14 +66,30 @@ public class Calculator {
    * using the BiFunction stored in the operators map, and pushes the result back onto the stack.
    * @param operator sign in string
    */
-  private void performOperation(String operator) {
+  private void performBinaryOperation(String operator) {
     if (stack.size() < 2) {
       throw new IllegalArgumentException("Insufficient operands for the operation");
     }
 
     double rightOperand = stack.pop();
     double leftOperand = stack.pop();
-    double result = operators.get(operator).apply(leftOperand, rightOperand);
+    double result = binaryOperators.get(operator).apply(leftOperand, rightOperand);
+    stack.push(result);
+  }
+
+  /**
+   * The performUnaryOperation method retrieves the top operand from the stack,
+   * applies the corresponding unary operation using the Function stored in the unaryOperators map,
+   * and pushes the result back onto the stack.
+   * @param operator sign in string
+   */
+  private void performUnaryOperation(String operator) {
+    if (stack.isEmpty()) {
+      throw new IllegalArgumentException("Insufficient operands for the operation");
+    }
+
+    double operand = stack.pop();
+    double result = unaryOperators.get(operator).apply(operand);
     stack.push(result);
   }
 
@@ -79,5 +103,15 @@ public class Calculator {
     String[] expression = {"16", "5", "*"};
     double result = calculator.evaluate(expression);
     System.out.println(result);  // Output: 21.0
+
+    // Negative operation
+    String[] negativeExpression = {"5", "neg"};
+    double negativeResult = calculator.evaluate(negativeExpression);
+    System.out.println(negativeResult);  // Output: -5.0
+
+    // Average operation
+    String[] averageExpression = {"10", "20", "avg"};
+    double averageResult = calculator.evaluate(averageExpression);
+    System.out.println(averageResult);  // Output: 15.0
   }
 }
